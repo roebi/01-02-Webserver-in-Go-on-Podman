@@ -6,6 +6,8 @@ And use a Webserver, beacause of CORS is disable loading file URLs.
 
 In this Project there are 2 main directories.
 
+And on the root directory 2 Dockerfiles.
+
 ## the **server** directory
 
 In this directory is the Go Webserver and the Podman / Docker Files.
@@ -14,7 +16,49 @@ In this directory is the Go Webserver and the Podman / Docker Files.
 
 In this directory are all the Websites Projects in its own subdirectories i.e. web-project1.
 
-# run / install in podman desktop / podman
+## on the root directory the 2 Podman / Docker Files
+
+### the Podman / Docker Files
+
+see in Dockerfile
+
+    // copy alle the web-projects
+    COPY ../web-projects/* ./
+
+    // build the go application webserver-in-go-on-podman
+    RUN CGO_ENABLED=0 GOOS=linux go build
+
+    // run the go application webserver-in-go-on-podman
+    CMD [ "./webserver-in-go-on-podman" ]
+
+see in Dockerfile.multistage
+
+    // in the go image
+    FROM golang:latest AS build-stage
+
+    // build the go application webserver-in-go-on-podman
+    RUN CGO_ENABLED=0 GOOS=linux go build
+
+    // in the base-debian11 image
+
+    // copy the go application webserver-in-go-on-podman
+    COPY --from=build-stage /app/webserver-in-go-on-podman /app/webserver-in-go-on-podman
+
+    // copy alle the web-projects
+    COPY ../web-projects/* ./
+
+    // expose port 8080
+    EXPOSE 8080
+
+    // run as nonroot
+    USER nonroot:nonroot
+
+    // run the go application webserver-in-go-on-podman
+    CMD [ "./webserver-in-go-on-podman" ]
+
+The multistage Dockerfile is at the end the smaller image / container because of the small run base image base-debian11.
+
+## run / install in podman desktop / podman
 
 local install first Podman Desktop
 
@@ -30,7 +74,7 @@ Now Podman and Podman Desktop are installed.
 
 Great - lets go ahead.
 
-# Build image from a Containerfile
+### Build image from a Containerfile
 
 if you cloned this Github Repo
 
@@ -54,5 +98,5 @@ on PASS a new **webserver-in-go-on-podman** Image is created.
 
 
 
-# create and run a container
+### create and run a container
 
