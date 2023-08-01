@@ -106,7 +106,7 @@ on PASS a new **docker.io/library/webserver-in-go-on-podman** Image is created.
 
 press **Done**
 
-### create and run a container
+### create and run a static container
 
 in Podman Desktop open **Images**
 
@@ -114,9 +114,9 @@ on the new Image **docker.io/library/webserver-in-go-on-podman** press the play 
 
 change Container Name to (all lowercase) **webserver-in-go-on-podman**
 
-now, if you would experiment with changes is your LOCAL web-projects directory
+for now you do not will experiment with changes is your LOCAL web-projects directory
 
-on Volumes on **Path on the host** select the **web-projects** directory and on **Path inside the contatiner** select **/app/web-projects/** (see Dockerfile)
+on Volumes do not define someting (remark for developing see **create and run a development container**)
 
 let Port mapping on 8080
 
@@ -187,3 +187,37 @@ in the terminal enter **bash** to have a bash shell
 
     exit<Enter>
     ends terminal
+
+### create and run a development container
+
+in Podman Desktop open **Images**
+
+on the new Image **docker.io/library/webserver-in-go-on-podman** press the play icon.
+
+change Container Name to (all lowercase) **webserver-in-go-on-podman-develop**
+
+yes you would experiment with changes is your LOCAL web-projects directory
+
+on Volumes on **Path on the host** select the **web-projects** directory and on **Path inside the contatiner** select **/app/web-projects/** (see Dockerfile)
+
+let Port mapping on 8080
+
+Environments variales: no additional Variables needed.
+
+press **Start Container**
+
+5 seconds later ...
+
+on PASS a new running **webserver-in-go-on-podman-develop** Container in Containers is created.
+
+why running ? = because there is a stop icon displayed.
+
+Open Browser and open Terminal is same as described above.
+
+### develop / experiment with your web-projects
+
+But now you change the files in web-projects lacal and ther are mapped to the docker image, becaus of the Volume mapping.
+
+enjoy
+
+Robert Halter
