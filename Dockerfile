@@ -13,17 +13,23 @@ WORKDIR /app
 
 # Download Go modules
 # COPY go.mod go.sum ./
-COPY go.mod ./
-# COPY go.sum ./
+COPY server/go.mod ./
+# COPY server/go.sum ./
 # RUN go mod download
-COPY webserver.go ./
+COPY server/webserver.go ./
 
 # Copy the source code. Note the slash at the end, as explained in
 # https://docs.docker.com/engine/reference/builder/#copy
-COPY ../web-projects/* ./
-# COPY index.html ./
-# COPY style.css ./
-# COPY script.js ./
+# https://pkg.go.dev/path/filepath#Match
+COPY web-projects/README.md web-projects/
+COPY web-projects/web-project1/index.html web-projects/web-project1/
+COPY web-projects/web-project1/images/* web-projects/web-project1/images/
+COPY web-projects/web-project1/scripts/* web-projects/web-project1/scripts/
+COPY web-projects/web-project1/styles/* web-projects/web-project1/styles/
+# same for web-projects/web-project2 if exist
+# same for web-projects/web-project3 if exist
+# same for web-projects/web-project4 if exist
+# same for web-projects/web-project5 if exist
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build

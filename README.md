@@ -22,8 +22,12 @@ In this directory are all the Websites Projects in its own subdirectories i.e. w
 
 see in Dockerfile
 
-    // copy alle the web-projects
-    COPY ../web-projects/* ./
+    // copy only the first of the web-projects
+    COPY web-projects/README.md web-projects/
+    COPY web-projects/web-project1/index.html web-projects/web-project1/
+    COPY web-projects/web-project1/images/* web-projects/web-project1/images/
+    COPY web-projects/web-project1/scripts/* web-projects/web-project1/scripts/
+    COPY web-projects/web-project1/styles/* web-projects/web-project1/styles/
 
     // build the go application webserver-in-go-on-podman
     RUN CGO_ENABLED=0 GOOS=linux go build
@@ -44,8 +48,12 @@ see in Dockerfile.multistage
     // copy the go application webserver-in-go-on-podman
     COPY --from=build-stage /app/webserver-in-go-on-podman /app/webserver-in-go-on-podman
 
-    // copy alle the web-projects
-    COPY ../web-projects/* ./
+    // copy only the first of the web-projects
+    COPY web-projects/README.md web-projects/
+    COPY web-projects/web-project1/index.html web-projects/web-project1/
+    COPY web-projects/web-project1/images/* web-projects/web-project1/images/
+    COPY web-projects/web-project1/scripts/* web-projects/web-project1/scripts/
+    COPY web-projects/web-project1/styles/* web-projects/web-project1/styles/
 
     // expose port 8080
     EXPOSE 8080
@@ -82,9 +90,9 @@ in Podman Desktop open **Images**
 
 then **Build an Image** ...
 
-select Containerfile path server/Dockerfile
+select Containerfile path Dockerfile
 
-change Build context directory to the Parent of server directory: **Webserver-in-Go-on-Podman**
+let Build context directory to Webserver-in-Go-on-Podman
 
 change Image Name to (all lowercase) **webserver-in-go-on-podman**
 
@@ -92,11 +100,84 @@ press **Build**
 
 one minute later ...
 
-on a Error a new **<none>** Image is created. Delete it.
+on a Error a new **\<none\>** Image is created. Delete it.
 
-on PASS a new **webserver-in-go-on-podman** Image is created.
+on PASS a new **docker.io/library/webserver-in-go-on-podman** Image is created.
 
-
+press **Done**
 
 ### create and run a container
 
+in Podman Desktop open **Images**
+
+on the new Image **docker.io/library/webserver-in-go-on-podman** press the play icon.
+
+change Container Name to (all lowercase) **webserver-in-go-on-podman**
+
+now, if you would experiment with changes is your LOCAL web-projects directory
+
+on Volumes on **Path on the host** select the **web-projects** directory and on **Path inside the contatiner** select **/app/web-projects/** (see Dockerfile)
+
+let Port mapping on 8080
+
+Environments variales: no additional Variables needed.
+
+press **Start Container**
+
+5 seconds later ...
+
+on PASS a new running **webserver-in-go-on-podman** Container in Containers is created.
+
+why running ? = because there is a stop icon displayed.
+
+### open the Browser to see the web-projects
+
+on running Container **webserver-in-go-on-podman** press the tree dots icon / menu
+
+then **Open Browser**
+
+now you can choose:
+
+press **Yes** open the link in your default browser.
+
+press **Copy link** copies the link in the clipboard, the you have to open a browser and copy (Ctrl-C) the link in the URL.
+
+### surprise
+
+in the browser there are the files
+
+current not optimal because all files (webserver and projects) are there.
+
+### inspect the image directories
+
+on running Container **webserver-in-go-on-podman** press the tree dots icon / menu
+
+then **Open Terminal**
+
+in the terminal enter **bash** to have a bash shell
+
+    pwd<Enter> // or cd /app<Enter>
+    /app
+
+    ls -al<Enter>
+    web-projects
+
+    cd web-projects<Enter>
+    ls -al<Enter>
+    web-project1
+
+    cd web-project1<Enter>
+    ls -al<Enter>
+    images
+    index.html
+    scripts
+    styles
+
+    ls -al *<Enter>
+    all files are here
+
+    exit<Enter>
+    ends bash
+
+    exit<Enter>
+    ends terminal
