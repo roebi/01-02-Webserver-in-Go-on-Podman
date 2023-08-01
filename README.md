@@ -30,13 +30,28 @@ Now Podman and Podman Desktop are installed.
 
 Great - lets go ahead.
 
-# create a Image
+# Build image from a Containerfile
 
 if you cloned this Github Repo
 
 in Podman Desktop open **Images**
 
 then **Build an Image** ...
+
+select Containerfile path server/Dockerfile
+
+change Build context directory to the Parent of server directory: **Webserver-in-Go-on-Podman**
+
+change Image Name to (all lowercase) **webserver-in-go-on-podman**
+
+press **Build**
+
+one minute later ...
+
+on a Error a new **<none>** Image is created. Delete it.
+
+on PASS a new **webserver-in-go-on-podman** Image is created.
+
 
 
 # create and run a container
