@@ -146,7 +146,13 @@ press **Copy link** copies the link in the clipboard, the you have to open a bro
 
 in the browser there are the files
 
-current not optimal because all files (webserver and projects) are there.
+current not optimal because all files (webserver and projects) are there:
+
+change to directory web-projects
+
+change to directory web-project1
+
+then the index.html file will be rendered and shows
 
 ### inspect the image directories
 
