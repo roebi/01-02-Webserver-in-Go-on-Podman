@@ -195,9 +195,9 @@ in Podman Desktop open **Images**
 
 on the new Image **docker.io/library/webserver-in-go-on-podman** press the play icon.
 
-change Container Name to (all lowercase) **webserver-in-go-on-podman-develop**
+Set Container Name to (all lowercase) **webserver-in-go-on-podman-develop**
 
-yes you would experiment with changes is your LOCAL web-projects directory
+yes now you would experiment with changes is your LOCAL web-projects directory
 
 on Volumes on **Path on the host** select the **web-projects** directory and on **Path inside the contatiner** select **/app/web-projects/** (see Dockerfile)
 
@@ -207,18 +207,42 @@ Environments variales: no additional Variables needed.
 
 press **Start Container**
 
-5 seconds later ...
+2 seconds later ...
 
 on PASS a new running **webserver-in-go-on-podman-develop** Container in Containers is created.
 
-why running ? = because there is a stop icon displayed.
+why is this new container already running ? = because there is a stop icon displayed.
 
 Open Browser and open Terminal is same as described above.
 
 ### develop / experiment with your web-projects
 
-But now you change the files in web-projects lacal and ther are mapped to the docker image, becaus of the Volume mapping.
+But now you change the files in web-projects local and there are mapped to the docker image, because of the Volume mapping.
 
-enjoy
+try it, for example:
+
+look at the current running webpage the
+
+title shows
+
+HTML5 Template Page
+
+bacause of
+
+<title>HTML5 Template Page</title> in index.html
+
+change it to e.g.
+
+<title>my HTML5 Template Page</title>
+
+reload the page in the broswer
+
+change title is shown
+
+my HTML5 Template Page
+
+great, your first change works
+
+## enjoy
 
 Robert Halter
