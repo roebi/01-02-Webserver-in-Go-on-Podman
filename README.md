@@ -1,3 +1,11 @@
+### This is a template repository
+
+You can make a own repository from this template and then work in your own repository.
+
+How? check here:
+
+[creating-a-repository-from-a-template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+
 # Webserver in Go on Podman
 
 To experiment with different Webprojects it is good to go with templates.
