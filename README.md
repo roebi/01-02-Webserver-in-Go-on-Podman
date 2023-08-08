@@ -20,7 +20,7 @@ In this directory are all the Websites Projects in its own subdirectories i.e. w
 
 ### the Podman / Docker Files
 
-see in Dockerfile
+see in Dockerfile - later in this description we use this Dockerimage first
 
     // copy all web-projects in web-projects
     COPY web-projects/ ./web-projects/
