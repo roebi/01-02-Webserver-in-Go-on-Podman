@@ -26,6 +26,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build
 RUN chmod +x ./webserver-in-go-on-podman
 
 # Deploy the application binary into a lean image
+# Details about this small Image: https://bell-sw.com/blog/distroless-containers-for-security-and-size/
 FROM gcr.io/distroless/base-debian11 AS release-stage
 
 # 22 MB big - multistage
@@ -38,11 +39,14 @@ COPY --from=build-stage /app/webserver-in-go-on-podman /app/webserver-in-go-on-p
 # Copy the source code. Note the slash at the end, as explained in
 # https://docs.docker.com/engine/reference/builder/#copy
 # https://pkg.go.dev/path/filepath#Match
-COPY web-projects/README.md web-projects/
-COPY web-projects/web-project1/index.html web-projects/web-project1/
-COPY web-projects/web-project1/images/* web-projects/web-project1/images/
-COPY web-projects/web-project1/scripts/* web-projects/web-project1/scripts/
-COPY web-projects/web-project1/styles/* web-projects/web-project1/styles/
+# https://stackoverflow.com/questions/30215830/dockerfile-copy-keep-subdirectory-structure
+COPY web-projects/ ./web-projects/
+# just to document which files and directories are copied:
+# COPY web-projects/README.md web-projects/
+# COPY web-projects/web-project1/index.html web-projects/web-project1/
+# COPY web-projects/web-project1/images/* web-projects/web-project1/images/
+# COPY web-projects/web-project1/scripts/* web-projects/web-project1/scripts/
+# COPY web-projects/web-project1/styles/* web-projects/web-project1/styles/
 # same for web-projects/web-project2 if exist
 # same for web-projects/web-project3 if exist
 # same for web-projects/web-project4 if exist
@@ -57,6 +61,7 @@ COPY web-projects/web-project1/styles/* web-projects/web-project1/styles/
 # https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 8080
 
+# important: to run the image NOT as a root user
 USER nonroot:nonroot
 
 # CMD is the command the container executes by default when you launch the built image.

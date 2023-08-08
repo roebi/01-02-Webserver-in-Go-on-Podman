@@ -22,15 +22,14 @@ In this directory are all the Websites Projects in its own subdirectories i.e. w
 
 see in Dockerfile
 
-    // copy only the first of the web-projects
-    COPY web-projects/README.md web-projects/
-    COPY web-projects/web-project1/index.html web-projects/web-project1/
-    COPY web-projects/web-project1/images/* web-projects/web-project1/images/
-    COPY web-projects/web-project1/scripts/* web-projects/web-project1/scripts/
-    COPY web-projects/web-project1/styles/* web-projects/web-project1/styles/
+    // copy all web-projects in web-projects
+    COPY web-projects/ ./web-projects/
 
     // build the go application webserver-in-go-on-podman
     RUN CGO_ENABLED=0 GOOS=linux go build
+
+    // important: to run the image NOT as a root user
+    USER $USER:$USER
 
     // run the go application webserver-in-go-on-podman
     CMD [ "./webserver-in-go-on-podman" ]
@@ -48,17 +47,13 @@ see in Dockerfile.multistage
     // copy the go application webserver-in-go-on-podman
     COPY --from=build-stage /app/webserver-in-go-on-podman /app/webserver-in-go-on-podman
 
-    // copy only the first of the web-projects
-    COPY web-projects/README.md web-projects/
-    COPY web-projects/web-project1/index.html web-projects/web-project1/
-    COPY web-projects/web-project1/images/* web-projects/web-project1/images/
-    COPY web-projects/web-project1/scripts/* web-projects/web-project1/scripts/
-    COPY web-projects/web-project1/styles/* web-projects/web-project1/styles/
+    // copy all web-projects in web-projects
+    COPY web-projects/ ./web-projects/
 
     // expose port 8080
     EXPOSE 8080
 
-    // run as nonroot
+    // important: to run the image NOT as a root user
     USER nonroot:nonroot
 
     // run the go application webserver-in-go-on-podman
@@ -90,9 +85,9 @@ in Podman Desktop open **Images**
 
 then **Build an Image** ...
 
-select Containerfile path Dockerfile
+select for 'Containerfile path' the File **Dockerfile**
 
-let Build context directory to Webserver-in-Go-on-Podman
+let 'Build context directory' to subdirectory **Webserver-in-Go-on-Podman**
 
 change Image Name to (all lowercase) **webserver-in-go-on-podman**
 
@@ -112,6 +107,8 @@ in Podman Desktop open **Images**
 
 on the new Image **docker.io/library/webserver-in-go-on-podman** press the play icon.
 
+in the upper Basic Tab
+
 change Container Name to (all lowercase) **webserver-in-go-on-podman**
 
 for now you do not will experiment with changes is your LOCAL web-projects directory
@@ -124,15 +121,15 @@ Environments variales: no additional Variables needed.
 
 press **Start Container**
 
-5 seconds later ...
+2 seconds later ...
 
 on PASS a new running **webserver-in-go-on-podman** Container in Containers is created.
 
-why running ? = because there is a stop icon displayed.
+why is this new container already running ? = because there is a stop icon displayed.
 
 ### open the Browser to see the web-projects
 
-on running Container **webserver-in-go-on-podman** press the tree dots icon / menu
+on this new running Container **webserver-in-go-on-podman** press the tree dots icon / menu
 
 then **Open Browser**
 
@@ -140,7 +137,7 @@ now you can choose:
 
 press **Yes** open the link in your default browser.
 
-press **Copy link** copies the link in the clipboard, the you have to open a browser and copy (Ctrl-C) the link in the URL.
+press **Copy link** copies the link in the clipboard, the you have to open your favorite browser and copy (Ctrl-C) the link in the URL.
 
 ### surprise
 
@@ -148,11 +145,13 @@ in the browser there are the files
 
 current not optimal because all files (webserver and projects) are there:
 
-change to directory web-projects
+change to directory web-projects, here you will finde README.md and web-project1 directory
 
 change to directory web-project1
 
-then the index.html file will be rendered and shows
+then the index.html file will be rendered
+
+the URL in the browser is then http://localhost:8080/web-projects/web-project1/
 
 ### inspect the image directories
 
@@ -161,6 +160,8 @@ on running Container **webserver-in-go-on-podman** press the tree dots icon / me
 then **Open Terminal**
 
 in the terminal enter **bash** to have a bash shell
+
+the bash stell has command history and tabbing to help enter commands
 
     pwd<Enter> // or cd /app<Enter>
     /app
@@ -180,7 +181,7 @@ in the terminal enter **bash** to have a bash shell
     styles
 
     ls -al *<Enter>
-    all files are here
+    all files and all subdirectories are here
 
     exit<Enter>
     ends bash
