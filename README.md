@@ -227,7 +227,7 @@ title shows
 
 HTML5 Template Page
 
-bacause of
+because of
 
 <title>HTML5 Template Page</title> in index.html
 
@@ -237,12 +237,89 @@ change it to e.g.
 
 reload the page in the broswer
 
-change title is shown
+changed title is shown
 
 my HTML5 Template Page
 
 great, your first change works
 
-## enjoy
+### enjoy
 
 Robert Halter
+
+## the Podman / Docker File Dockerfile.multistage
+
+to try this smaller mulitstage Dockerfile stop other running Containers
+
+in this mulitstage Dockerfile, the difference is as follows
+
+in the first stage **build-stage**
+
+    FROM golang:latest AS build-stage
+
+the webserver is build with go
+
+then in the next stage **release-stage**
+
+    FROM gcr.io/distroless/base-debian11 AS release-stage
+
+all the webprojects are copied in
+
+and the webserver runs then on the smaller Baseimage base-debian11
+
+### create and run a static container from Podman / Docker File Dockerfile.multistage
+
+Images / Build an Image
+
+select **Dockerfile.multistage**
+
+change Image Name to (all lowercase) **webserver-in-go-on-podman-small**
+
+on a Error a new **\<none\>** Image is created. Delete it.
+
+on PASS a new smaller (30 MB) **docker.io/library/webserver-in-go-on-podman-small** Image is created from release-stage
+
+and a bigger (940 MB) **<none>** Image from the build-stage.
+
+press **Done**
+
+wait some seconds until all the images are displayed.
+
+### create and run a static container
+
+in Podman Desktop open **Images**
+
+on the new Image **docker.io/library/webserver-in-go-on-podman-small** press the play icon.
+
+in the upper Basic Tab
+
+change Container Name to (all lowercase) **webserver-in-go-on-podman-small**
+
+for now you do not will experiment with changes is your LOCAL web-projects directory
+
+on Volumes do not define someting (remark for developing see **create and run a development container**)
+
+let Port mapping on 8080
+
+Environments variales: no additional Variables needed.
+
+press **Start Container**
+
+2 seconds later ...
+
+on PASS a new running **webserver-in-go-on-podman-small** Container in Containers is created.
+
+why is this new container already running ? = because there is a stop icon displayed.
+
+### open the Browser to see the web-projects
+
+in the browser on http://localhost:8080/
+
+change to / select **web-projects/**
+
+then change to / select **web-project1/**
+
+cool, the webpage of web-project1 is displayed / rendered
+
+
+until here
