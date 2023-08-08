@@ -199,7 +199,7 @@ Set Container Name to (all lowercase) **webserver-in-go-on-podman-develop**
 
 yes now you would experiment with changes is your LOCAL web-projects directory
 
-on Volumes on **Path on the host** select the **web-projects** directory and on **Path inside the contatiner** select **/app/web-projects/** (see Dockerfile)
+on Volumes on **Path on the host** select the **web-projects** directory and on **Path inside the container** select **/app/web-projects/** (see Dockerfile)
 
 let Port mapping on 8080
 
@@ -235,7 +235,9 @@ change it to e.g.
 
 <title>my HTML5 Template Page</title>
 
-reload the page in the broswer
+reload the page in the browser (reload or Control & Reload to really reload)
+
+be careful, the browser page cache doesn't always load everything from scratch
 
 changed title is shown
 
@@ -321,5 +323,62 @@ then change to / select **web-project1/**
 
 cool, the webpage of web-project1 is displayed / rendered
 
+### create and run a development container from Podman / Docker File Dockerfile.multistage
 
-until here
+in Podman Desktop open **Images**
+
+on the new Image **docker.io/library/webserver-in-go-on-podman-small** press the play icon.
+
+Set Container Name to (all lowercase) **webserver-in-go-on-podman-small-develop**
+
+yes now you would experiment with changes is your LOCAL web-projects directory
+
+on Volumes on **Path on the host** select the **web-projects** directory and on **Path inside the container** select **/app/web-projects/** (see Dockerfile)
+
+let Port mapping on 8080
+
+Environments variales: no additional Variables needed.
+
+press **Start Container**
+
+2 seconds later ...
+
+on PASS a new running **webserver-in-go-on-podman-small-develop** Container in Containers is created.
+
+why is this new container already running ? = because there is a stop icon displayed.
+
+Open Browser and open Terminal is same as described above.
+
+### develop / experiment with your web-projects
+
+But now you change the files in web-projects local and there are mapped to the docker image, because of the Volume mapping.
+
+try it, for example:
+
+look at the current running webpage the
+
+title shows
+
+HTML5 Template Page
+
+because of
+
+<title>HTML5 Template Page</title> in index.html
+
+change it to e.g.
+
+<title>my small HTML5 Template Page</title>
+
+reload the page in the browser (reload or Control & Reload to really reload)
+
+be careful, the browser page cache doesn't always load everything from scratch
+
+changed title is shown
+
+my small HTML5 Template Page
+
+great, your second! change works too
+
+### enjoy the smaller container
+
+Robert Halter
