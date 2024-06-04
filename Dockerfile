@@ -1,6 +1,6 @@
 # use go as base Image
 # https://hub.docker.com/_/golang
-FROM golang:1.22rc2-bookworm
+FROM golang:latest
 
 # 868 MB big - singlestage
 
