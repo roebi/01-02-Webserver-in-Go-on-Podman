@@ -1,6 +1,6 @@
 # use go as base Image
 # https://hub.docker.com/_/golang
-FROM golang:1.24.3
+FROM golang:1.25rc2
 
 # 868 MB big - singlestage
 
